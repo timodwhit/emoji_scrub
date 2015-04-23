@@ -89,11 +89,6 @@ function _emoji_scrub_adub_dub($text, $replace = '') {
   return $stripped_string;
 }
 
-function emoji_scrub_error_string() {
-  $string = t('Oops, looks like there is an emoji in your form field. Please alter and resave.');
-  return $string;
-}
-
 /**
  * Implementation of hook_permission().
  */
@@ -102,7 +97,7 @@ function emoji_scrub_permission() {
     'administer emoji scrub settings' => array(
       'title' => t('Alter the emoji scrub settings'),
       'description' => t('Alter the emoji scrub settings'),
-        'restrict access' => TRUE,
+      'restrict access' => TRUE,
     ),
   );
 }
@@ -125,7 +120,7 @@ function emoji_scrub_menu() {
 }
 
 /**
- * Implementation of hook_settings
+ * Implementation of hook_settings().
  */
 function emoji_scrub_settings() {
 
