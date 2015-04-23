@@ -90,7 +90,7 @@ function _emoji_scrub_adub_dub($text, $replace = '') {
 }
 
 /**
- * Implementation of hook_permission().
+ * Implements hook_permission().
  */
 function emoji_scrub_permission() {
   return array(
@@ -103,7 +103,7 @@ function emoji_scrub_permission() {
 }
 
 /**
- * Implementation of hook_menu().
+ * Implements hook_menu().
  */
 function emoji_scrub_menu() {
   $items = array();
@@ -120,7 +120,7 @@ function emoji_scrub_menu() {
 }
 
 /**
- * Implementation of hook_settings().
+ * Implements hook_settings().
  */
 function emoji_scrub_settings() {
 
@@ -139,7 +139,7 @@ function emoji_scrub_settings() {
   $form['emoji_scrub_replace'] = array(
     '#type' => 'textfield',
     '#title' => 'Replacement string for emojis',
-    '#description' => 'The string value here will replace all emojis on the site.',
+    '#description' => t('The string value here will replace all emojis on the site.'),
     '#default_value' => variable_get('emoji_scrub_replace', ''),
   );
 
