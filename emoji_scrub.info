@@ -1,0 +1,3 @@
+name = Emoji Scrub
+description = Scrubs filtered text for emojis
+core = 7.x
