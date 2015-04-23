@@ -34,11 +34,17 @@ function emoji_scrub_taxonomy_term_presave($term) {
 
 /**
  * Loop through all the entity text fields and strip the emojis.
- * @param  object $entity Fully loaded entity object
- * @param  string $type   Type of entity
- * @param  string $bundle Entity Bundle
- * @param  string $lang   Language
- * @return object         Editted entity to return
+ *
+ * @param object $entity
+ *   Fully loaded entity object.
+ * @param string $type
+ *   Type of entity.
+ * @param string $bundle
+ *   Entity Bundle.
+ * @param string $lang
+ *   Language
+ * @return object
+ *   Editted entity to return
  */
 function emoji_scrub_entity_text_fields($entity, $type, $bundle, $lang) {
   $fields = field_info_instances($type, $bundle);
