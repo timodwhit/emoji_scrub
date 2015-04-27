@@ -131,7 +131,6 @@ function emoji_scrub_settings() {
     '#default_value' => variable_get('emoji_scrub_type', 'scrub'),
     '#options' => array(
       'scrub' => t('Remove all emojis from text'),
-      // 'error' => t('Set message to manually remove emojis'),
     ),
     '#weight' => -5,
   );
