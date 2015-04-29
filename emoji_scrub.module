@@ -69,7 +69,7 @@ function emoji_scrub_entity_text_fields($entity, $type, $bundle, $lang) {
  * Custom function to scrub all emojis away.
  */
 function _emoji_scrub_adub_dub($text, $replace = '') {
-  if ($replace = '') {
+  if ($replace == '') {
     $replace = variable_get('emoji_scrub_replace', '');
   }
   // Regex grabbed from https://www.drupal.org/node/1910376.
