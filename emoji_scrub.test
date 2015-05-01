@@ -11,9 +11,9 @@
  *
  * @ingroup emoji_scrub
  */
-class EmojiSrcubTestCase extends DrupalWebTestCase {
+class EmojiScrubTestCase extends DrupalWebTestCase {
 
-  protected $privileged_user;
+  protected $privilegedUser;
 
   /**
    * {@inheritdoc}
@@ -34,11 +34,11 @@ class EmojiSrcubTestCase extends DrupalWebTestCase {
     // Enable emoji scrub.
     parent::setUp(array('emoji_scrub'));
     // Create and log in our privileged user.
-    $this->privileged_user = $this->drupalCreateUser(array(
+    $this->privilegedUser = $this->drupalCreateUser(array(
       'administer taxonomy',
       'create article content',
       ));
-    $this->drupalLogin($this->privileged_user);
+    $this->drupalLogin($this->privilegedUser);
   }
 
   /**
@@ -66,4 +66,5 @@ class EmojiSrcubTestCase extends DrupalWebTestCase {
     $this->drupalPost('admin/structure/taxonomy/tags/add', $edit, t('Save'));
     $this->assertText(t('Created new term @name', array('@name' => $edit['name'])));
   }
+
 }
