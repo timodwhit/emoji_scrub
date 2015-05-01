@@ -8,7 +8,7 @@
  * Implements hook_node_presave().
  */
 function emoji_scrub_node_presave($node) {
-  if (variable_get('emoji_scrub_type') == 'scrub') {
+  if (variable_get('emoji_scrub_type', 'scrub') == 'scrub') {
     $type = 'node';
     $bundle = $node->type;
     $lang = $node->language;
@@ -20,7 +20,7 @@ function emoji_scrub_node_presave($node) {
  * Implements hook_taxonomy_term_presave().
  */
 function emoji_scrub_taxonomy_term_presave($term) {
-  if (variable_get('emoji_scrub_type') == 'scrub') {
+  if (variable_get('emoji_scrub_type', 'scrub') == 'scrub') {
     $type = 'taxonomy_term';
     $bundle = $term->vocabulary_machine_name;
     $lang = $term->path['language'];

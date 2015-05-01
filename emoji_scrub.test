@@ -1,0 +1,69 @@
+<?php
+/**
+ * @file
+ * Simpletest case for emoji_scrub module.
+ *
+ * Verify example module functionality.
+ */
+
+/**
+ * Functionality tests of the emoji scrub module.
+ *
+ * @ingroup emoji_scrub
+ */
+class EmojiSrcubTestCase extends DrupalWebTestCase {
+
+  protected $privileged_user;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    // Note: getInfo() strings are not translated with t().
+    return array(
+      'name' => 'Emoji Scrub',
+      'description' => 'Ensure that the emoji_scrub is scrubbing effectively.',
+      'group' => 'Emoji Scrub',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    // Enable emoji scrub.
+    parent::setUp(array('emoji_scrub'));
+    // Create and log in our privileged user.
+    $this->privileged_user = $this->drupalCreateUser(array(
+      'administer taxonomy',
+      'create article content',
+      ));
+    $this->drupalLogin($this->privileged_user);
+  }
+
+  /**
+   * Tests the scrubbing of a test article with emojis in the body.
+   */
+  public function testEmojiScrubArticle() {
+    $emoji_text = "😘😘😘 Best Test Text ever 😒😡😤";
+    // Create node to edit.
+    $edit = array();
+    $edit['title'] = $this->randomName(8);
+    $edit['body[und][0][value]'] = $emoji_text;
+    $this->drupalPost('node/add/article', $edit, t('Save'));
+    $this->assertText(t('Article @title has been created.', array('@title' => $edit['title'])));
+  }
+
+  /**
+   * Test the scrubbing of the tags.
+   */
+  public function testEmojiScrubTag() {
+    $emoji_text = "😘😘😘 Best Test Text ever 😒😡😤";
+    // Create node to edit.
+    $edit = array();
+    $edit['name'] = $this->randomName(8);
+    $edit['description[value]'] = $emoji_text;
+    $this->drupalPost('admin/structure/taxonomy/tags/add', $edit, t('Save'));
+    $this->assertText(t('Created new term @name', array('@name' => $edit['name'])));
+  }
+}
