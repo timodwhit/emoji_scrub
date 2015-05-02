@@ -11,9 +11,9 @@
  *
  * @ingroup emoji_scrub
  */
-class EmojiScrubTestCase extends DrupalWebTestCase {
+class EmojiSrcubTestCase extends DrupalWebTestCase {
 
-  protected $privilegedUser;
+  protected $privileged_user;
 
   /**
    * {@inheritdoc}
@@ -34,11 +34,12 @@ class EmojiScrubTestCase extends DrupalWebTestCase {
     // Enable emoji scrub.
     parent::setUp(array('emoji_scrub'));
     // Create and log in our privileged user.
-    $this->privilegedUser = $this->drupalCreateUser(array(
+    $this->privileged_user = $this->drupalCreateUser(array(
       'administer taxonomy',
       'create article content',
+      'administer emoji scrub settings'
       ));
-    $this->drupalLogin($this->privilegedUser);
+    $this->drupalLogin($this->privileged_user);
   }
 
   /**
@@ -65,6 +66,28 @@ class EmojiScrubTestCase extends DrupalWebTestCase {
     $edit['description[value]'] = $emoji_text;
     $this->drupalPost('admin/structure/taxonomy/tags/add', $edit, t('Save'));
     $this->assertText(t('Created new term @name', array('@name' => $edit['name'])));
+  }
+
+  /**
+   * Test the replacement of the emoji text.
+   */
+  public function testEmojiScrubAdubReplace() {
+    $edit = array();
+    $em = 'em';
+    $edit['emoji_scrub_replace'] = $em;
+    $this->drupalPost('admin/config/content/emoji_scrub', $edit, t('Save configuration'));
+    // Create node to edit.
+    $emoji_text = "😘😘😘 Best Test Text ever 😒😡😤";
+    $replaced_text = $em . $em . $em . ' Best Test Text ever ' . $em . $em . $em;
+    // Create an article with the proper settings.
+    $settings = array(
+      'type' => 'article',
+      'title' => $this->randomName(32),
+      'body' => array(LANGUAGE_NONE => array(array('value'=>$emoji_text))),
+    );
+    $node = $this->drupalCreateNode($settings);
+    // Test to make sure the node's body is equal to the emoji scrub replacement.
+    $this->assertEqual($node->body['und'][0]['value'], $replaced_text, 'Text Replaced');
   }
 
 }
