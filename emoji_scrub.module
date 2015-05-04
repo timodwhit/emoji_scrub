@@ -52,7 +52,8 @@ function emoji_scrub_entity_text_fields($entity, $type, $bundle, $lang) {
   // Loop through all field instances.
   foreach ($fields as $field_id => $field) {
     if ($field['widget']['module'] == 'text') {
-      $entity_field = $entity->$field_id;
+      $entity_field = !empty($entity->$field_id) ? $entity->$field_id : array();
+      if (!empty($entity_field[$lang])) {
       foreach ($entity_field[$lang] as $k => $v) {
         $text = $v['value'];
         if (!empty($text)) {
