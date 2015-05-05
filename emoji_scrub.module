@@ -23,7 +23,7 @@ function emoji_scrub_taxonomy_term_presave($term) {
   if (variable_get('emoji_scrub_type', 'scrub') == 'scrub') {
     $type = 'taxonomy_term';
     $bundle = $term->vocabulary_machine_name;
-    $lang = $term->path['language'];
+    $lang = !empty($term->path['language']) ? $term->path['language'] : 'und';
     $term = emoji_scrub_entity_text_fields($term, $type, $bundle, $lang);
     // Terms also have a description field.
     if (!empty($term->description)) {
